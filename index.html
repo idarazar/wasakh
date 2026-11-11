@@ -3,549 +3,205 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Premium Apps Store</title>
-    <style>
-        /* ============================================
-           GLOBAL STYLES & RESET
-           ============================================ */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            line-height: 1.6;
-            color: #1a202c;
-            background: linear-gradient(to bottom, #f7fafc 0%, #edf2f7 100%);
-            min-height: 100vh;
-        }
-
-        a {
-            text-decoration: none;
-            color: inherit;
-        }
-
-        /* ============================================
-           HEADER & STORE NAME
-           ============================================ */
-        .store-header {
-            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #d946ef 100%);
-            padding: 4rem 1.5rem;
-            text-align: center;
-            color: white;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .store-header::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('data:image/svg+xml,<svg width="60" height="60" xmlns="http://www.w3.org/2000/svg"><circle cx="30" cy="30" r="20" fill="rgba(255,255,255,0.05)"/></svg>');
-            animation: float 20s infinite linear;
-        }
-
-        @keyframes float {
-            0% { transform: translateY(0); }
-            100% { transform: translateY(-60px); }
-        }
-
-        .store-name {
-            font-size: 3.5rem;
-            font-weight: 800;
-            text-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
-            margin: 0;
-            position: relative;
-            z-index: 1;
-            letter-spacing: -1px;
-        }
-
-        .store-tagline {
-            font-size: 1.2rem;
-            margin-top: 0.8rem;
-            opacity: 0.95;
-            font-weight: 300;
-            position: relative;
-            z-index: 1;
-        }
-
-        /* ============================================
-           HERO SECTION
-           ============================================ */
-        .hero-section {
-            width: 100%;
-            height: 450px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero-section::before {
-            content: '';
-            position: absolute;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
-            background-size: 50px 50px;
-            animation: drift 30s infinite linear;
-        }
-
-        @keyframes drift {
-            0% { transform: translate(0, 0); }
-            100% { transform: translate(50px, 50px); }
-        }
-
-        .hero-content {
-            position: relative;
-            z-index: 2;
-            text-align: center;
-            color: white;
-            padding: 2rem;
-            max-width: 800px;
-        }
-
-        .hero-content h2 {
-            font-size: 3rem;
-            margin-bottom: 1.2rem;
-            text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-            font-weight: 800;
-            letter-spacing: -1px;
-        }
-
-        .hero-content p {
-            font-size: 1.3rem;
-            opacity: 0.95;
-            font-weight: 300;
-        }
-
-        /* ============================================
-           APPS GRID SECTION
-           ============================================ */
-        .apps-section {
-            max-width: 1300px;
-            margin: 0 auto;
-            padding: 5rem 2rem 6rem;
-        }
-
-        .section-title {
-            text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 4rem;
-            color: #1a202c;
-            font-weight: 800;
-            letter-spacing: -1px;
-        }
-
-        .apps-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2.5rem;
-            margin-bottom: 5rem;
-        }
-
-        /* ============================================
-           APP CARD STYLES
-           ============================================ */
-        .app-card {
-            background: white;
-            border-radius: 24px;
-            padding: 2.5rem 2rem;
-            text-align: center;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            cursor: pointer;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-            position: relative;
-            overflow: hidden;
-            border: 1px solid rgba(0, 0, 0, 0.05);
-        }
-
-        .app-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 5px;
-            background: linear-gradient(90deg, #6366f1 0%, #8b5cf6 50%, #d946ef 100%);
-            transform: scaleX(0);
-            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .app-card:hover {
-            transform: translateY(-12px);
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
-        }
-
-        .app-card:hover::before {
-            transform: scaleX(1);
-        }
-
-        .app-icon {
-            width: 110px;
-            height: 110px;
-            margin: 0 auto 1.8rem;
-            border-radius: 28px;
-            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #d946ef 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 3.5rem;
-            color: white;
-            box-shadow: 0 12px 24px rgba(99, 102, 241, 0.35);
-            transition: transform 0.4s ease;
-        }
-
-        .app-card:hover .app-icon {
-            transform: scale(1.08);
-        }
-
-        .app-name {
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin-bottom: 0.8rem;
-            color: #1a202c;
-            letter-spacing: -0.5px;
-        }
-
-        .app-info {
-            color: #4a5568;
-            font-size: 0.95rem;
-            line-height: 1.6;
-            margin-bottom: 1.2rem;
-            min-height: 48px;
-        }
-
-        .app-stats {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 1.5rem;
-            margin-top: 1.2rem;
-            padding-top: 1.2rem;
-            border-top: 1px solid #e2e8f0;
-        }
-
-        .stat-item {
-            display: flex;
-            align-items: center;
-            gap: 0.4rem;
-            font-size: 0.9rem;
-            color: #718096;
-            font-weight: 600;
-        }
-
-        .rating {
-            color: #f59e0b;
-        }
-
-        .downloads {
-            color: #10b981;
-        }
-
-        /* ============================================
-           FOOTER STYLES
-           ============================================ */
-        .footer {
-            background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
-            color: white;
-            padding: 3rem 2rem;
-            text-align: center;
-        }
-
-        .footer-content {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .privacy-button {
-            display: inline-block;
-            color: white;
-            padding: 1rem 3rem;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 50px;
-            transition: all 0.3s ease;
-            font-weight: 600;
-            font-size: 1.05rem;
-            backdrop-filter: blur(10px);
-            border: 2px solid rgba(255, 255, 255, 0.2);
-        }
-
-        .privacy-button:hover {
-            background: rgba(255, 255, 255, 0.2);
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
-        }
-
-        .footer-text {
-            margin-top: 2rem;
-            opacity: 0.7;
-            font-size: 0.9rem;
-        }
-
-        /* ============================================
-           APP DETAIL PAGE STYLES
-           ============================================ */
-        .detail-container {
-            max-width: 900px;
-            margin: 3rem auto;
-            padding: 0 2rem 3rem;
-        }
-
-        .detail-card {
-            background: white;
-            border-radius: 28px;
-            padding: 3rem;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
-            border: 1px solid rgba(0, 0, 0, 0.05);
-        }
-
-        .detail-header {
-            display: flex;
-            align-items: center;
-            gap: 2.5rem;
-            margin-bottom: 3rem;
-            padding-bottom: 2.5rem;
-            border-bottom: 2px solid #f1f5f9;
-        }
-
-        .detail-icon {
-            width: 140px;
-            height: 140px;
-            border-radius: 32px;
-            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #d946ef 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 5rem;
-            color: white;
-            box-shadow: 0 15px 35px rgba(99, 102, 241, 0.4);
-            flex-shrink: 0;
-        }
-
-        .detail-info h1 {
-            font-size: 2.5rem;
-            margin-bottom: 0.8rem;
-            color: #1a202c;
-            font-weight: 800;
-            letter-spacing: -1px;
-        }
-
-        .detail-rating {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            font-size: 1.1rem;
-            color: #64748b;
-            margin-top: 0.5rem;
-        }
-
-        .stars {
-            color: #f59e0b;
-            font-size: 1.4rem;
-            font-weight: bold;
-        }
-
-        .detail-description {
-            margin-bottom: 3rem;
-            line-height: 1.9;
-            color: #475569;
-            font-size: 1.1rem;
-        }
-
-        .button-group {
-            display: flex;
-            gap: 1rem;
-            flex-wrap: wrap;
-        }
-
-        .install-button {
-            display: inline-block;
-            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #d946ef 100%);
-            color: white;
-            padding: 1.2rem 3.5rem;
-            border-radius: 50px;
-            font-size: 1.2rem;
-            font-weight: 700;
-            box-shadow: 0 8px 20px rgba(99, 102, 241, 0.4);
-            transition: all 0.3s ease;
-            border: none;
-            cursor: pointer;
-        }
-
-        .install-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 12px 30px rgba(99, 102, 241, 0.6);
-        }
-
-        .back-button {
-            display: inline-block;
-            background: #f1f5f9;
-            color: #1e293b;
-            padding: 1.2rem 2.5rem;
-            border-radius: 50px;
-            font-size: 1.1rem;
-            font-weight: 600;
-            transition: all 0.3s ease;
-        }
-
-        .back-button:hover {
-            background: #e2e8f0;
-            transform: translateY(-3px);
-        }
-
-        /* ============================================
-           RESPONSIVE DESIGN
-           ============================================ */
-        @media (max-width: 768px) {
-            .store-name {
-                font-size: 2.2rem;
-            }
-
-            .store-tagline {
-                font-size: 1rem;
-            }
-
-            .hero-section {
-                height: 350px;
-            }
-
-            .hero-content h2 {
-                font-size: 2rem;
-            }
-
-            .hero-content p {
-                font-size: 1.1rem;
-            }
-
-            .section-title {
-                font-size: 2rem;
-            }
-
-            .apps-grid {
-                grid-template-columns: 1fr;
-                gap: 2rem;
-            }
-
-            .detail-header {
-                flex-direction: column;
-                text-align: center;
-            }
-
-            .detail-info h1 {
-                font-size: 1.8rem;
-            }
-
-            .detail-card {
-                padding: 2rem;
-            }
-
-            .button-group {
-                flex-direction: column;
-            }
-
-            .install-button, .back-button {
-                width: 100%;
-                text-align: center;
-            }
-        }
-
-        @media (min-width: 769px) and (max-width: 1024px) {
-            .apps-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-    </style>
+    <meta name="description" content="Asteroid Tech builds smart Android voice apps like Phone Control Voice Assistant.">
+    <meta name="theme-color" content="#7b5cff">
+    <meta property="og:title" content="Asteroid Tech - Android Voice Apps">
+    <meta property="og:description" content="Asteroid Tech builds smart Android voice apps like Phone Control Voice Assistant.">
+    <meta property="og:type" content="website">
+    <title>Asteroid Tech - Android Voice Apps</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="style.css">
+    <noscript><style>.reveal{opacity:1;transform:none;filter:none}.split .ln>span{transform:none}</style></noscript>
 </head>
 <body>
-    <!-- Store Header -->
-    <header class="store-header">
-        <h1 class="store-name">Premium Apps Store</h1>
-        <p class="store-tagline">Discover the best apps for your lifestyle</p>
-    </header>
+<div class="progress"></div>
+<div class="frame">
 
-    <!-- Hero Section -->
-    <section class="hero-section">
-        <div class="hero-content">
-            <h2>Transform Your Device</h2>
-            <p>Explore our handpicked collection of powerful applications</p>
+<header>
+    <div class="container navbar">
+        <nav class="nav-left"><a href="index.html" class="active">Home</a><a href="index.html#apps">Apps</a><a href="index.html#faq">FAQ</a></nav>
+        <a href="index.html" class="logo" aria-label="Asteroid Tech home"><span class="logo-mark"><svg class="ico" viewBox="0 0 24 24"><path d="M4.5 16.5c-1.5 1.3-2 5-2 5s3.7-.5 5-2c.7-.8.7-2.1-.1-2.9a2.2 2.2 0 0 0-2.9-.1z"/><path d="m12 15-3-3a22 22 0 0 1 2-3.9A12.9 12.9 0 0 1 22 2c0 2.7-.8 7.5-6 11a22.4 22.4 0 0 1-4 2z"/><path d="M9 12H4s.6-3 2-4c1.6-1.1 5 0 5 0M12 15v5s3-.6 4-2c1.1-1.6 0-5 0-5"/></svg></span><span>Asteroid<em>Tech</em></span></a>
+        <div class="nav-right"><a href="terms.html">Terms</a><a href="privacy.html">Privacy</a><a href="contact.html">Contact</a>
+            <button class="menu-btn" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-mobile"><span></span><span></span></button>
+        </div>
+    </div>
+    <nav id="nav-mobile"><ul><li><a href="index.html" class="active">Home</a></li><li><a href="index.html#apps">Apps</a></li><li><a href="terms.html">Terms of Use</a></li><li><a href="privacy.html">Privacy Policy</a></li><li><a href="contact.html">Contact Us</a></li></ul></nav>
+</header>
+
+<main>
+    <section class="hero">
+        <div class="hero-bg"></div>
+        <div class="container hero-grid">
+            <div>
+                <span class="eyebrow reveal">🚀 Android apps by Asteroid Tech</span>
+                <h1 class="split">Control Your<br><span class="grad">Phone With</span><br><span class="grad">Your Voice</span></h1>
+                <p class="lead reveal" style="--d:.45s">Search, ask, play and organize your day — just tap the mic and speak. Smart voice apps made simple.</p>
+                <div class="hero-actions reveal" style="--d:.6s">
+                    <a href="https://play.google.com/store/apps/details?id=com.commands.siri" target="_blank" rel="noopener noreferrer" class="btn btn-pink">Download Now <svg class="ico" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+                    <span class="rate-chip"><svg viewBox="0 0 24 24" class="st"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"/></svg> 4.5 <small>· 1.8K reviews on Google Play</small></span>
+                </div>
+                <div class="hero-features">
+                    <div class="hf reveal"><i><svg class="ico" viewBox="0 0 24 24"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v4"/></svg></i><h3>Voice Commands</h3><p>Tap the mic and tell your phone what to do.</p></div>
+                    <div class="hf reveal" style="--d:.1s"><i><svg class="ico" viewBox="0 0 24 24"><path d="M13 2 3 14h9l-1 8 10-12h-9z"/></svg></i><h3>Fast Answers</h3><p>Weather, news, web and Wikipedia in seconds.</p></div>
+                </div>
+            </div>
+            <div class="phone-stage reveal" style="--d:.25s">
+                <div class="float f1"><h5>Voice Search</h5><p>Ask anything and get answers from the web and Wikipedia instantly.</p></div>
+                <div class="float f3"><svg viewBox="0 0 24 24" class="st"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"/></svg> 4.5 Google Play</div>
+                <div class="float f2"><h5>Try saying…</h5><ul><li>“What's the weather?”</li><li>“Play my music”</li><li>“Show my calendar”</li><li>“Search Wikipedia”</li></ul></div>
+                <div class="phone"><div class="screen">
+        <div class="scr-top"><span>Voice<b style="color:var(--ink)">Assistant</b></span><i><img src="https://play-lh.googleusercontent.com/U1N45NA-c3e764oy4DX5SLpooJe7G2JGPnnqaXfKdcQPd6TPkGrox6Tyq6J98i2S3Gabi-nsVRmsYX-_db7QmQ=w240-h480" alt="Phone Control Voice Assistant icon" data-fb="VA" loading="lazy" referrerpolicy="no-referrer"></i></div>
+        <div class="scr-hello">Hello,<b>How can I help? 👋</b></div>
+        <div class="scr-card"><small>Listening…</small><b>“Open my calendar for tomorrow”</b><div class="wave"><span style="--i:0"></span><span style="--i:1"></span><span style="--i:2"></span><span style="--i:3"></span><span style="--i:4"></span><span style="--i:5"></span><span style="--i:6"></span><span style="--i:7"></span><span style="--i:8"></span><span style="--i:9"></span><span style="--i:10"></span><span style="--i:11"></span><span style="--i:12"></span><span style="--i:13"></span></div></div>
+        <div class="scr-list"><div class="cmd"><i><svg class="ico" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg></i><span>Search the web<small>“Who invented the radio?”</small></span><em>Done</em></div><div class="cmd"><i><svg class="ico" viewBox="0 0 24 24"><path d="M17.5 19a4.5 4.5 0 1 0-1.4-8.8A6 6 0 1 0 6 17.7"/><path d="M6 19h11.5"/></svg></i><span>Weather today<small>“Will it rain tomorrow?”</small></span><em>24°</em></div><div class="cmd"><i><svg class="ico" viewBox="0 0 24 24"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg></i><span>Play music<small>“Play something relaxing”</small></span><em>On</em></div></div>
+        <span class="mic"><svg class="ico" viewBox="0 0 24 24"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v4"/></svg></span>
+    </div></div>
+                <div class="dl-strip"><span class="stack"><span>★</span><span>♪</span><span>☁</span><span>+</span></span><span><b>Downloaded more than</b><small>100K+ times on Google Play</small></span></div>
+            </div>
         </div>
     </section>
 
-    <!-- Apps Grid Section -->
-    <section class="apps-section">
-        <h2 class="section-title">Featured Applications</h2>
-        <div class="apps-grid">
-            <!-- App Card 1: Air Play -->
-            <a href="app1.html" class="app-card">
-                <div class="app-icon">📺</div>
-                <h3 class="app-name">Air Play: Cast to TV</h3>
-                <p class="app-info">Mirror phone to TV effortlessly! Stream, share & connect with Airplay ease.</p>
-                <div class="app-stats">
-                    <span class="stat-item rating">⭐ 4.6</span>
-                    <span class="stat-item downloads">📥 100K+</span>
+    <section class="section">
+        <div class="container info-grid">
+            <div class="task-wrap reveal">
+                <span class="task-badge"><svg class="ico" viewBox="0 0 24 24"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v4"/></svg></span>
+                <div class="task-card">
+                    <h4>Today's commands <span>+ New</span></h4>
+                    <ul>
+                        <li class="done"><i></i>Check the weather forecast</li>
+                        <li class="done"><i></i>Play my morning playlist</li>
+                        <li><i></i>Search “best pizza near me”</li>
+                        <li><i></i>Open tomorrow's calendar</li>
+                    </ul>
                 </div>
-            </a>
-
-            <!-- App Card 2: Reverse Charging -->
-            <a href="app2.html" class="app-card">
-                <div class="app-icon">🔋</div>
-                <h3 class="app-name">Reverse Charging Wireless</h3>
-                <p class="app-info">Reverse Charging Wireless app allows users to charge their phone wirelessly.</p>
-                <div class="app-stats">
-                    <span class="stat-item rating">⭐ 4.4</span>
-                    <span class="stat-item downloads">📥 50K+</span>
-                </div>
-            </a>
-
-            <!-- App Card 3: SmartWatch Connect -->
-            <a href="app3.html" class="app-card">
-                <div class="app-icon">⌚</div>
-                <h3 class="app-name">SmartWatch Connect for Android</h3>
-                <p class="app-info">Connect your phone & smartwatch via Bluetooth and get all notifications.</p>
-                <div class="app-stats">
-                    <span class="stat-item rating">⭐ 4.5</span>
-                    <span class="stat-item downloads">📥 50K+</span>
-                </div>
-            </a>
-
-            <!-- App Card 4: Smart Remote -->
-            <a href="app4.html" class="app-card">
-                <div class="app-icon">📱</div>
-                <h3 class="app-name">Smart Remote: Universal TV</h3>
-                <p class="app-info">Controller TV – control, cast & mirror all your smart TVs instantly!</p>
-                <div class="app-stats">
-                    <span class="stat-item rating">⭐ 4.3</span>
-                    <span class="stat-item downloads">📥 10K+</span>
-                </div>
-            </a>
-
-            <!-- App Card 5: Endoscope Camera -->
-            <a href="app5.html" class="app-card">
-                <div class="app-icon">📷</div>
-                <h3 class="app-name">Endoscope Camera / USB OTG</h3>
-                <p class="app-info">Connect USB endoscope cameras to inspect hard-to-reach areas easily.</p>
-                <div class="app-stats">
-                    <span class="stat-item rating">⭐ 4.2</span>
-                    <span class="stat-item downloads">📥 10K+</span>
-                </div>
-            </a>
+                <div class="bars"><span style="height:14px"></span><span style="height:26px"></span><span style="height:18px"></span><span style="height:34px"></span><span style="height:22px"></span><span style="height:30px"></span><span style="height:12px"></span><span style="height:24px"></span><span style="height:16px"></span></div>
+            </div>
+            <div class="big-stats">
+                <div class="reveal"><b data-count="100" data-suffix="K+">0</b><span>Installs on Google Play</span></div>
+                <div class="reveal" style="--d:.1s"><b>4.5★</b><span>Average user rating</span></div>
+                <div class="reveal" style="--d:.2s"><b>1.8K</b><span>Reviews from users</span></div>
+            </div>
+            <div class="feat-list"><div class="reveal" style="--d:0.0s"><h3><i><svg class="ico" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg></i>Voice search</h3><p>Search the web and Wikipedia just by asking.</p></div><div class="reveal" style="--d:0.08s"><h3><i><svg class="ico" viewBox="0 0 24 24"><path d="M17.5 19a4.5 4.5 0 1 0-1.4-8.8A6 6 0 1 0 6 17.7"/><path d="M6 19h11.5"/></svg></i>Weather &amp; news</h3><p>Hear the forecast and follow the latest news.</p></div><div class="reveal" style="--d:0.16s"><h3><i><svg class="ico" viewBox="0 0 24 24"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg></i>Music &amp; calendar</h3><p>Play songs and check your schedule hands-free.</p></div><div class="reveal" style="--d:0.24s"><h3><i><svg class="ico" viewBox="0 0 24 24"><path d="m3 10 9-7 9 7v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M9 22V12h6v10"/></svg></i>Smart home</h3><p>Control compatible smart-home devices by voice.</p></div></div>
         </div>
     </section>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="footer-content">
-            <a href="privacy.html" class="privacy-button">Privacy Policy</a>
-            <p class="footer-text">© 2026 Premium Apps Store. All rights reserved.</p>
+    <section class="section" id="apps" style="background:var(--soft)">
+        <div class="container center">
+            <span class="eyebrow reveal">Our Apps</span>
+            <h2 class="h2 split">Learn More About <span class="grad">Our Apps</span><br>&amp; What's <span class="grad">Coming Next</span></h2>
+            <p class="sub reveal">One app live on Google Play — and three new voice-powered apps on the way.</p>
+            <div class="apps-grid" style="text-align:left">
+<article class="app-card reveal">
+    <div class="app-cover"><span class="ai"><img src="https://play-lh.googleusercontent.com/U1N45NA-c3e764oy4DX5SLpooJe7G2JGPnnqaXfKdcQPd6TPkGrox6Tyq6J98i2S3Gabi-nsVRmsYX-_db7QmQ=w240-h480" alt="Phone Control Voice Assistant icon" data-fb="VA" loading="lazy" referrerpolicy="no-referrer"></span></div>
+    <div class="app-body">
+        <div class="app-meta"><span class="tag live">Available</span>★ 4.5 · 100K+</div>
+        <h3>Phone Control Voice Assistant</h3>
+        <p>Control your phone with your voice: search the web, check the weather, play music, open your calendar and more.</p>
+        <div class="app-links">
+            <a class="play-button" href="https://play.google.com/store/apps/details?id=com.commands.siri" target="_blank" rel="noopener noreferrer">Google Play <svg class="ico" viewBox="0 0 24 24"><path d="M7 17 17 7M7 7h10v10"/></svg></a>
+            <a class="terms-mini" href="terms-phone-control-voice-assistant.html" aria-label="Terms of Use" title="Terms of Use"><svg class="ico" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M8 13h8M8 17h5"/></svg></a>
         </div>
-    </footer>
+    </div>
+</article>
+<article class="app-card soon reveal">
+    <span class="soon-badge">Coming Soon</span>
+    <div class="app-cover"><span class="ai"><div class="fb">VT</div></span></div>
+    <div class="app-body">
+        <div class="app-meta"><span class="tag">Soon</span>In development</div>
+        <h3>Voice Translator</h3>
+        <p>Speak in one language and hear the translation instantly.</p>
+        <div class="app-links"><span class="play-button disabled">Coming Soon</span></div>
+    </div>
+</article>
+<article class="app-card soon reveal">
+    <span class="soon-badge">Coming Soon</span>
+    <div class="app-cover"><span class="ai"><div class="fb">VN</div></span></div>
+    <div class="app-body">
+        <div class="app-meta"><span class="tag">Soon</span>In development</div>
+        <h3>Voice Notes &amp; Reminders</h3>
+        <p>Dictate notes and set reminders hands-free in seconds.</p>
+        <div class="app-links"><span class="play-button disabled">Coming Soon</span></div>
+    </div>
+</article>
+<article class="app-card soon reveal">
+    <span class="soon-badge">Coming Soon</span>
+    <div class="app-cover"><span class="ai"><div class="fb">SD</div></span></div>
+    <div class="app-body">
+        <div class="app-meta"><span class="tag">Soon</span>In development</div>
+        <h3>Smart Voice Dialer</h3>
+        <p>Call and text your contacts just by saying their name.</p>
+        <div class="app-links"><span class="play-button disabled">Coming Soon</span></div>
+    </div>
+</article></div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container rating-band">
+            <div class="rating-visual reveal">
+                <div class="blob"></div>
+                <div class="big-icon"><img src="https://play-lh.googleusercontent.com/U1N45NA-c3e764oy4DX5SLpooJe7G2JGPnnqaXfKdcQPd6TPkGrox6Tyq6J98i2S3Gabi-nsVRmsYX-_db7QmQ=w240-h480" alt="Phone Control Voice Assistant icon" data-fb="VA" loading="lazy" referrerpolicy="no-referrer"></div>
+                <div class="card"><small>Google Play rating</small><b>4.5</b><div class="row"><svg viewBox="0 0 24 24" class="st"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"/></svg><svg viewBox="0 0 24 24" class="st"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"/></svg><svg viewBox="0 0 24 24" class="st"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"/></svg><svg viewBox="0 0 24 24" class="st"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"/></svg><svg viewBox="0 0 24 24" class="st"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"/></svg></div><small>1.8K reviews · 100K+ installs</small></div>
+                <div class="pill-float">🎙️ Tools · Rated 3+</div>
+            </div>
+            <div>
+                <div class="quote-mark reveal">“</div>
+                <blockquote class="reveal">Our goal is simple: build apps that save you time. Ask a question, play a song or check your day — your phone does the rest, just by listening to your voice.</blockquote>
+                <cite class="reveal">— The Asteroid Tech team</cite>
+                <div class="reveal" style="margin-top:28px"><a href="https://play.google.com/store/apps/details?id=com.commands.siri" target="_blank" rel="noopener noreferrer" class="btn btn-p">See it on Google Play <svg class="ico" viewBox="0 0 24 24"><path d="M7 17 17 7M7 7h10v10"/></svg></a></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="faq" style="padding-top:20px">
+        <div class="container center">
+            <span class="eyebrow reveal">FAQ</span>
+            <h2 class="h2 split">Got A Question?<br><span class="grad">We've Got Answers.</span></h2>
+            <div class="faq reveal" style="text-align:left"><details open><summary>Is Phone Control Voice Assistant free?<i><svg class="ico" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></i></summary><div class="ans">Yes. The app is free to download on Google Play and is supported by ads.</div></details><details><summary>What can I do with my voice?<i><svg class="ico" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></i></summary><div class="ans">You can search the web and Wikipedia, check the weather, follow the news, play music, check your calendar, ask for suggestions and control compatible smart-home features. Just tap the microphone and speak.</div></details><details><summary>Why does the app need microphone access?<i><svg class="ico" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></i></summary><div class="ans">The microphone is used only to hear the commands you speak after you tap the mic button. See our <a class="link" href="privacy.html">Privacy Policy</a> for details.</div></details><details><summary>When are the new apps coming?<i><svg class="ico" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></i></summary><div class="ans">We are working on new voice-powered apps. Follow us on Google Play to be the first to know when they launch.</div></details><details><summary>How can I contact support?<i><svg class="ico" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></i></summary><div class="ans">Write to <a class="link" href="mailto:hightechandroid@outlook.com">hightechandroid@outlook.com</a> or use our <a class="link" href="contact.html">Contact page</a>.</div></details></div>
+        </div>
+    </section>
+
+    <section class="section" style="padding-top:20px">
+        <div class="container">
+            <div class="cta reveal">
+                <div class="cta-phone"><div class="phone"><div class="screen">
+        <div class="scr-top"><span>Voice<b style="color:var(--ink)">Assistant</b></span><i><img src="https://play-lh.googleusercontent.com/U1N45NA-c3e764oy4DX5SLpooJe7G2JGPnnqaXfKdcQPd6TPkGrox6Tyq6J98i2S3Gabi-nsVRmsYX-_db7QmQ=w240-h480" alt="Phone Control Voice Assistant icon" data-fb="VA" loading="lazy" referrerpolicy="no-referrer"></i></div>
+        <div class="scr-hello">Hello,<b>How can I help? 👋</b></div>
+        <div class="scr-card"><small>Listening…</small><b>“Open my calendar for tomorrow”</b><div class="wave"><span style="--i:0"></span><span style="--i:1"></span><span style="--i:2"></span><span style="--i:3"></span><span style="--i:4"></span><span style="--i:5"></span><span style="--i:6"></span><span style="--i:7"></span><span style="--i:8"></span><span style="--i:9"></span><span style="--i:10"></span><span style="--i:11"></span><span style="--i:12"></span><span style="--i:13"></span></div></div>
+        <div class="scr-list"><div class="cmd"><i><svg class="ico" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg></i><span>Search the web<small>“Who invented the radio?”</small></span><em>Done</em></div><div class="cmd"><i><svg class="ico" viewBox="0 0 24 24"><path d="M17.5 19a4.5 4.5 0 1 0-1.4-8.8A6 6 0 1 0 6 17.7"/><path d="M6 19h11.5"/></svg></i><span>Weather today<small>“Will it rain tomorrow?”</small></span><em>24°</em></div></div>
+        <span class="mic"><svg class="ico" viewBox="0 0 24 24"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v4"/></svg></span>
+    </div></div></div>
+                <div>
+                    <h2 class="h2">Ready? Let's Start With <em>Asteroid Tech</em></h2>
+                    <p>Download Phone Control Voice Assistant for free and give your phone a voice.</p>
+                    <a href="https://play.google.com/store/apps/details?id=com.commands.siri" target="_blank" rel="noopener noreferrer" class="btn btn-white">Download Now <svg class="ico" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer>
+    <div class="container">
+        <div class="footer-top">
+            <div><a href="index.html" class="logo" aria-label="Asteroid Tech home"><span class="logo-mark"><svg class="ico" viewBox="0 0 24 24"><path d="M4.5 16.5c-1.5 1.3-2 5-2 5s3.7-.5 5-2c.7-.8.7-2.1-.1-2.9a2.2 2.2 0 0 0-2.9-.1z"/><path d="m12 15-3-3a22 22 0 0 1 2-3.9A12.9 12.9 0 0 1 22 2c0 2.7-.8 7.5-6 11a22.4 22.4 0 0 1-4 2z"/><path d="M9 12H4s.6-3 2-4c1.6-1.1 5 0 5 0M12 15v5s3-.6 4-2c1.1-1.6 0-5 0-5"/></svg></span><span>Asteroid<em>Tech</em></span></a><p>Smart and simple Android apps that let you do more with your voice.</p></div>
+            <div><h5>Company</h5><ul>
+                <li><a href="index.html">Home</a></li><li><a href="index.html#apps">Our Apps</a></li>
+                <li><a href="contact.html">Contact Us</a></li><li><a href="https://play.google.com/store/apps/dev?id=8295305621930182229" target="_blank" rel="noopener noreferrer">Google Play</a></li></ul></div>
+            <div><h5>Legal</h5><ul>
+                <li><a href="terms.html">Terms of Use</a></li><li><a href="privacy.html">Privacy Policy</a></li>
+                <li><a href="terms-phone-control-voice-assistant.html">App Terms</a></li></ul></div>
+            <div><h5>Get in touch</h5><ul>
+                <li><a href="mailto:hightechandroid@outlook.com">hightechandroid@outlook.com</a></li><li>Morocco</li></ul>
+                <a href="https://play.google.com/store/apps/dev?id=8295305621930182229" target="_blank" rel="noopener noreferrer" class="btn btn-p btn-sm" style="margin-top:16px">Follow on Google Play</a></div>
+        </div>
+        <div class="footer-bottom"><span>© <span class="year">2026</span> Asteroid Tech. All rights reserved.</span><span>Made for Android</span></div>
+    </div>
+</footer>
+</div>
+<script src="script.js"></script>
 </body>
 </html>
