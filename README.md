@@ -1,2 +1,2 @@
-# Shadow-soft
+# Asteroid Tech
 Official store website
